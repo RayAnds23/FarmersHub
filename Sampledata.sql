@@ -10,7 +10,7 @@ INSERT INTO customer (customerFirstName, customerLastName, customerStreet, custo
 ('Olivia', 'Moore', 'Mandurriao', 'Ilo-ilo', '555-4433'),
 ('William', 'Garcia', '707 Oak Rd', 'Lakeside', '555-2211');
 
--- Inventory: (10 entries)
+-- Inventory
 INSERT INTO Inventory (shoeName, colorway, shoeSize, shoeQuantity, shoePrice) VALUES
 ('Samba OG 1', 'Gray', 9, 100, 90.00),
 ('Samba OG 1', 'Brown', 10, 50, 95.00),
@@ -23,7 +23,7 @@ INSERT INTO Inventory (shoeName, colorway, shoeSize, shoeQuantity, shoePrice) VA
 ('NB75', 'White', 9, 60, 110.00),
 ('NB75', 'Brown', 11, 35, 120.00);
 
--- Sales: (10 entries)
+-- Sales
 INSERT INTO sales (customerID, salesDate, transactionTotalAmount) VALUES
 (1001, '2024-09-10 09:00:00', 90.00),
 (1004, '2024-09-14 10:00:00', 95.00),
@@ -36,7 +36,7 @@ INSERT INTO sales (customerID, salesDate, transactionTotalAmount) VALUES
 (1001, '2024-09-17 15:45:00', 85.00),
 (1002, '2024-09-18 09:10:00', 95.00);
 
--- Sales Details: (10 entries)
+-- Sales Details
 INSERT INTO salesDetails (salesID, shoeID, salesQuantity, totalAmount) VALUES
 (10001, 1, 1, 90.00),
 (10002, 4, 1, 95.00),
@@ -56,3 +56,18 @@ INSERT INTO restock (shoeID, restockDate, restockQuantity) VALUES
 (6, '2024-09-13 15:30:00', 15),
 (5, '2024-09-15 09:00:00', 30),
 (7, '2024-09-16 10:00:00', 40);
+
+-- brands
+INSERT INTO brand (brandName) VALUES
+('Nike'),
+('Adidas'),
+('New Balance');
+
+-- updating inventory for brand
+ALTER TABLE Inventory ADD COLUMN brandID INT;
+UPDATE Inventory SET brandID = (SELECT brandID FROM brand WHERE brandName = 'Nike') WHERE shoeName LIKE 'NK%';
+UPDATE Inventory SET brandID = (SELECT brandID FROM brand WHERE brandName = 'Adidas') WHERE shoeName LIKE 'Samba%';
+UPDATE Inventory SET brandID = (SELECT brandID FROM brand WHERE brandName = 'New Balance') WHERE shoeName LIKE 'NB%';
+ALTER TABLE Inventory
+ADD FOREIGN KEY (brandID)
+REFERENCES brand(brandID);
