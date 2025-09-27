@@ -4,6 +4,18 @@
 -- use table (run)
 -- then run code for tables
 
+-- USERS (no relationship yet!)
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+	first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'staff',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL
+);
+
 CREATE TABLE customer (
     customerID INT PRIMARY KEY AUTO_INCREMENT,
     customerFirstName VARCHAR(50) NOT NULL,
@@ -14,7 +26,7 @@ CREATE TABLE customer (
 );
 ALTER TABLE customer AUTO_INCREMENT = 1001;
 
--- Create the 'Inventory' table with an AUTO_INCREMENT starting at 1.
+-- Create the 'Inventory' table with an AUTO_INCREMENT starting at 1
 CREATE TABLE Inventory (
     shoeID INT PRIMARY KEY AUTO_INCREMENT,
     shoeName VARCHAR(50) NOT NULL,
@@ -61,8 +73,6 @@ CREATE TABLE brand (
     brandID INT PRIMARY KEY AUTO_INCREMENT,
     brandName VARCHAR(50) NOT NULL UNIQUE
 );
-
-
 
 
 
